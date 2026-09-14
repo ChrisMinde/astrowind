@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H3C CAS vs VMware vSphere License Calculator</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', 'Helvetica Neue', sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1000px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin: 0 auto;
+      border-left: 1px solid #999;
+      border-right: 1px solid #999;
+    }
+
+    .container2 {
+      max-width: 1000px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      height: 10px;
+      margin: 0 auto;
+    }
+
+    /* =========================
+       HEADER
+       ========================= */
+
+    .header {
+      background: #0066cc;
+      color: white;
+      padding: 30px 40px;
+      border-bottom: 4px solid #004c99;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .header-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 150px;
+      min-width: 150px;
+      height: 72px;
+    }
+
+    .header-logo svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 10px;
+      opacity: 0.95;
+    }
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    .footer {
+      background: #0066cc;
+      max-height: 50px;
+      color: white;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-bottom: 0;
+      text-align: center;
+      vertical-align: middle;
+      margin-bottom: 10px;
+    }
+
+    .footer p {
+      font-size: 12px;
+      opacity: 0.95;
+    }
+
+    /* =========================
+       CONTENT
+       ========================= */
+
+    .content {
+      padding: 40px;
+    }
+
+    /* =========================
+       INFO BOX
+       ========================= */
+
+    .info-box {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .info-box h3 {
+      color: #0066cc;
+      margin-bottom: 12px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .info-box ul {
+      margin-left: 20px;
+      color: #495057;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       SECTION TITLE
+       ========================= */
+
+    .section-title {
+      color: #0066cc;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #0066cc;
+    }
+
+    /* =========================
+       INPUT SECTION
+       ========================= */
+
+    .input-section {
+      background: #ffffff;
+      border: 1px solid #dee2e6;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+
+    .input-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #495057;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* =========================
+       INPUT FIELDS
+       ========================= */
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #8ab4d6;
+      border-radius: 3px;
+      font-size: 14px;
+      background: #dff1ff;
+      color: #003b70;
+      font-weight: 600;
+
+      transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    /* Placeholder text for number fields */
+
+    input::placeholder {
+      color: #003b70;
+      opacity: 1;
+    }
+
+    /* =========================
+       INITIAL BLUE STATE
+       ========================= */
+
+    select.placeholder-state {
+      background: #dff1ff;
+      color: #003b70;
+      border-color: #8ab4d6;
+    }
+
+    select.placeholder-state option {
+      color: #003b70;
+      background: #dff1ff;
+    }
+
+    /* =========================
+       FILLED / SELECTED GREEN STATE
+       ========================= */
+
+    input.input-filled,
+    select.input-filled {
+      background: #e2f5e9;
+      color: #176b36;
+      border-color: #8ac79e;
+    }
+
+    select.input-filled option {
+      color: #176b36;
+      background: #e2f5e9;
+    }
+
+    /* =========================
+       FOCUS STATE
+       ========================= */
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #0066cc;
+      box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.12);
+    }
+
+    /* =========================
+       BUTTONS
+       ========================= */
+
+    .button-row {
+      display: flex;
+      gap: 15px;
+    }
+
+    .calculate-btn,
+    .reset-btn {
+      border: none;
+      padding: 12px 40px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+
+    .calculate-btn {
+      background: #0066cc;
+      color: white;
+    }
+
+    .calculate-btn:hover {
+      background: #0052a3;
+    }
+
+    .reset-btn {
+      background: #e0e0e0;
+      color: #333;
+    }
+
+    .reset-btn:hover {
+      background: #c9c9c9;
+    }
+
+    /* =========================
+       RESULTS
+       ========================= */
+
+    .results {
+      margin-top: 40px;
+      display: none;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .result-card {
+      background: white;
+      border: 1px solid #dee2e6;
+      padding: 0;
+    }
+
+    .result-card-header {
+      background: #f8f9fa;
+      padding: 15px 20px;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .result-card-header h3 {
+      color: #0066cc;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .result-card-body {
+      padding: 20px;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+
+    .result-row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 16px;
+      color: #0066cc;
+      margin-top: 10px;
+      padding-top: 15px;
+      border-top: 2px solid #dee2e6;
+    }
+
+    /* =========================
+       COST COMPARISON
+       ========================= */
+
+    .comparison-wrapper {
+      display: flex;
+      align-items: stretch;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .comparison {
+      background: #e8f4f8;
+      border: 2px solid #0066cc;
+      padding: 18px 20px;
+      text-align: center;
+      flex: 0 1 75%;
+      min-width: 0;
+    }
+
+    .comparison-title {
+      color: #0066cc;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .savings {
+      font-size: 20px;
+      font-weight: 700;
+      color: #13e404;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .savings-percent {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fd0303;
+      text-align: center;
+    }
+
+    /* =========================
+       MORE INFORMATION BUTTON
+       ========================= */
+
+    .more-info-btn {
+      flex: 0 0 25%;
+      border: none;
+      background: #0066cc;
+      color: white;
+      padding: 15px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition:
+        background 0.2s,
+        transform 0.2s;
+    }
+
+    .more-info-btn:hover {
+      background: #0052a3;
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+       DISCLAIMER
+       ========================= */
+
+    .note {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      padding: 15px 20px;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #856404;
+    }
+
+    /* =========================
+       RESPONSIVE DESIGN
+       ========================= */
+
+    @media (max-width: 768px) {
+
+      .input-grid,
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .comparison-wrapper {
+        flex-direction: column;
+      }
+
+      .comparison,
+      .more-info-btn {
+        flex: 1 1 100%;
+        width: 100%;
+      }
+
+      .header {
+        padding: 25px 20px;
+      }
+
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-logo {
+        width: 130px;
+        min-width: 130px;
+        height: 60px;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      .calculate-btn,
+      .reset-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- =========================
+         HEADER
+         ========================= -->
+
+    <div class="header">
+
+      <div class="header-inner">
+
+        <div class="header-text">
+          <h1>Virtualization Licensing Cost Calculator</h1>
+          <p>
+            H3C CAS vs VMware vSphere - Total Cost of Ownership Analysis
+          </p>
+        </div>
+
+        <div class="header-logo" aria-label="Logo">
+
+          <img
+            src="D:\Minde Technology\minde technologies logo weiss.png"
+            alt="Company logo"
+            style="max-width: 100%; max-height: 100%; object-fit: contain;"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         CONTENT
+         ========================= -->
+
+    <div class="content">
+
+      <!-- Calculator Overview -->
+
+      <div class="info-box">
+
+        <h3>Calculator Overview</h3>
+
+        <ul>
+
+          <li>
+            <strong>H3C CAS:</strong>
+            CPU socket-based licensing model (perpetual license per CPU)
+          </li>
+
+          <li>
+            <strong>VMware vSphere:</strong>
+            Core-based licensing model (per core/year)
+          </li>
+
+          <li>
+            <strong>Required Information:</strong>
+            Total number of servers/hosts, total CPU sockets, and total CPU cores
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <!-- =========================
+           CONFIGURATION PARAMETERS
+           ========================= -->
+
+      <div class="input-section">
+
+        <h2 class="section-title">
+          Configuration Parameters
+        </h2>
+
+
+        <div class="input-grid">
+
+          <!-- VMware License Type -->
+
+          <div class="input-group full-width">
+
+            <label for="vmwareProduct">
+              VMware License Type:
+            </label>
+
+            <select
+              id="vmwareProduct"
+              class="placeholder-state"
+              onchange="updateFieldState(this)"
+            >
+
+              <option value="" selected>
+                Please select the VMware license type
+              </option>
+
+              <option value="standard">
+                VMware vSphere Standard
+              </option>
+
+              <option value="enterprisePlus">
+                VMware vSphere Enterprise Plus
+              </option>
+
+              <option value="foundation">
+                VMware vSphere Foundation (VVF)
+              </option>
+
+              <option value="cloudFoundation">
+                VMware Cloud Foundation (VCF)
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Number of Servers -->
+
+          <div class="input-group">
+
+            <label for="numServers">
+              Total Number of Servers/Hosts:
+            </label>
+
+            <input
+              type="number"
+              id="numServers"
+              min="1"
+              placeholder="0"
+              oninput="this.value = Math.abs(this.value); updateFieldState(this)"
+            >
+
+          </div>
+
+
+          <!-- Number of CPU Sockets -->
+
+          <div class="input-group">
+
+            <label for="numCPUs">
+              Total Number of CPU Sockets:
+            </label>
+
+            <input
+              type="number"
+              id="numCPUs"
+              min="1"
+              placeholder="0"
+              oninput="this.value = Math.abs(this.value); updateFieldState(this)"
+            >
+
+          </div>
+
+
+          <!-- Number of CPU Cores -->
+
+          <div class="input-group full-width">
+
+            <label for="numCores">
+              Total Number of CPU Cores:
+            </label>
+
+            <input
+              type="number"
+              id="numCores"
+              min="1"
+              placeholder="0"
+              oninput="this.value = Math.abs(this.value); updateFieldState(this)"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="button-row">
+
+          <button
+            class="calculate-btn"
+            onclick="calculate()"
+          >
+            Calculate License Costs
+          </button>
+
+          <button
+            class="reset-btn"
+            onclick="resetForm()"
+          >
+            Reset
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           RESULTS
+           ========================= -->
+
+      <div class="results" id="results">
+
+        <h2 class="section-title">
+          Cost Analysis Results
+        </h2>
+
+
+        <div class="results-grid">
+
+          <!-- VMware Result -->
+
+          <div class="result-card">
+
+            <div class="result-card-header">
+
+              <h3>
+                VMware vSphere Licensing
+              </h3>
+
+            </div>
+
+            <div class="result-card-body">
+
+              <div class="result-row">
+
+                <span class="result-label">
+                  Edition:
+                </span>
+
+                <span
+                  class="result-value"
+                  id="vmwareProductName"
+                ></span>
+
+              </div>
+
+
+              <div class="result-row">
+
+                <span class="result-label">
+                  Total Cores:
+                </span>
+
+                <span
+                  class="result-value"
+                  id="vmwareCores"
+                ></span>
+
+              </div>
+
+
+              <div class="result-row">
+
+                <span class="result-label">
+                  Total Cost:
+                </span>
+
+                <span
+                  class="result-value"
+                  id="vmwareTotalCost"
+                ></span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- H3C Result -->
+
+          <div class="result-card">
+
+            <div class="result-card-header">
+
+              <h3>
+                H3C CAS Licensing
+              </h3>
+
+            </div>
+
+            <div class="result-card-body">
+
+              <div class="result-row">
+
+                <span class="result-label">
+                  Edition:
+                </span>
+
+                <span
+                  class="result-value"
+                  id="h3cProductName"
+                ></span>
+
+              </div>
+
+
+              <div class="result-row">
+
+                <span class="result-label">
+                  Total CPU Sockets:
+                </span>
+
+                <span
+                  class="result-value"
+                  id="h3cCPUs"
+                ></span>
+
+              </div>
+
+
+              <div class="result-row">
+
+                <span class="result-label">
+                  Total Cost:
+                </span>
+
+                <span
+                  class="result-value"
+                  id="h3cTotalCost"
+                ></span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             COST COMPARISON
+             ========================= -->
+
+        <div class="comparison-wrapper">
+
+          <div class="comparison">
+
+            <div class="comparison-title">
+              Cost Comparison Summary for a period of 5 years
+            </div>
+
+            <div
+              class="savings"
+              id="comparisonAmount"
+            ></div>
+
+            <div
+              class="savings-percent"
+              id="comparisonPercent"
+            ></div>
+
+          </div>
+
+
+          <!-- More Information Button -->
+
+          <button
+            class="more-info-btn"
+            onclick="showMoreInformation()"
+          >
+            More Information
+          </button>
+
+        </div>
+
+
+        <!-- Disclaimer -->
+
+        <div class="note">
+
+          <strong>
+            Important Disclaimer:
+          </strong>
+
+          <br>
+
+          - This tool does not take into account:
+          Add-On licenses and related costs / Any "trade-in" scenarios.
+
+          <br>
+
+          - Licensing costs may differ from the costs listed in a binding quote.
+          The calculator shows the approximate potential savings.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <footer class="footer">
+
+      <p>
+        Minde Technologies GmbH -
+        Mülistrasse 5 -
+        8320 Fehraltorf -
+        Schweiz -
+        +41 78 312 38 05 -
+        info@mindetech.ch -
+        www.mindetech.ch
+      </p>
+
+    </footer>
+
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
+
+  <script>
+
+    /* =========================
+       PRICING DATA
+       ========================= */
+
+    const vmwarePricing = {
+
+      standard: {
+        name: 'VMware vSphere Standard',
+        price: 60,
+        h3c: 'standard'
+      },
+
+      enterprisePlus: {
+        name: 'VMware vSphere Enterprise Plus',
+        price: 135,
+        h3c: 'enterprise1'
+      },
+
+      foundation: {
+        name: 'VMware vSphere Foundation (VVF)',
+        price: 195,
+        h3c: 'enterprise2'
+      },
+
+      cloudFoundation: {
+        name: 'VMware Cloud Foundation (VCF)',
+        price: 292,
+        h3c: 'enterprise3'
+      }
+
+    };
+
+
+    const h3cPricing = {
+
+      standard: {
+        name: 'H3C CAS Standard Edition',
+        price: 690
+      },
+
+      enterprise1: {
+        name: 'H3C CAS Enterprise Edition I',
+        price: 1890
+      },
+
+      enterprise2: {
+        name: 'H3C CAS Enterprise Edition II',
+        price: 2490
+      },
+
+      enterprise3: {
+        name: 'H3C CAS Enterprise Edition III',
+        price: 3900
+      }
+
+    };
+
+
+    /* =========================
+       FIELD COLOR STATE
+       ========================= */
+
+    function updateFieldState(field) {
+
+      /*
+       * SELECT FIELD
+       */
+
+      if (field.tagName === 'SELECT') {
+
+        if (field.value === '') {
+
+          field.classList.remove('input-filled');
+          field.classList.add('placeholder-state');
+
+        } else {
+
+          field.classList.remove('placeholder-state');
+          field.classList.add('input-filled');
+
+        }
+
+      }
+
+
+      /*
+       * INPUT FIELD
+       */
+
+      else {
+
+        if (field.value.trim() === '') {
+
+          field.classList.remove('input-filled');
+
+        } else {
+
+          field.classList.add('input-filled');
+
+        }
+
+      }
+
+    }
+
+
+    /* =========================
+       CALCULATE
+       ========================= */
+
+    function calculate() {
+
+      const vmwareProduct =
+        document.getElementById('vmwareProduct').value;
+
+      const numCores =
+        parseInt(
+          document.getElementById('numCores').value
+        );
+
+      const numCPUs =
+        parseInt(
+          document.getElementById('numCPUs').value
+        );
+
+      const numServers =
+        parseInt(
+          document.getElementById('numServers').value
+        );
+
+
+      /*
+       * Validate VMware selection
+       */
+
+      if (!vmwareProduct) {
+
+        alert(
+          'Please select the VMware license type.'
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * Validate required fields
+       */
+
+      if (!numCores || !numCPUs || !numServers) {
+
+        alert(
+          'Please fill in all required fields.'
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * Get pricing information
+       */
+
+      const vmware =
+        vmwarePricing[vmwareProduct];
+
+      const h3c =
+        h3cPricing[vmware.h3c];
+
+
+      /*
+       * Calculate costs
+       */
+
+      const vmwareTotalCost =
+        numCores * vmware.price * 5;
+
+      const h3cTotalCost =
+        numCPUs * h3c.price;
+
+
+      /*
+       * VMware result
+       */
+
+      document.getElementById(
+        'vmwareProductName'
+      ).textContent =
+        vmware.name;
+
+
+      document.getElementById(
+        'vmwareCores'
+      ).textContent =
+        numCores.toLocaleString();
+
+
+      document.getElementById(
+        'vmwareTotalCost'
+      ).textContent =
+        '$' + vmwareTotalCost.toLocaleString();
+
+
+      /*
+       * H3C result
+       */
+
+      document.getElementById(
+        'h3cProductName'
+      ).textContent =
+        h3c.name;
+
+
+      document.getElementById(
+        'h3cCPUs'
+      ).textContent =
+        numCPUs.toLocaleString();
+
+
+      document.getElementById(
+        'h3cTotalCost'
+      ).textContent =
+        '$' + h3cTotalCost.toLocaleString();
+
+
+      /*
+       * Compare costs
+       */
+
+      const savings =
+        vmwareTotalCost - h3cTotalCost;
+
+
+      if (savings > 0) {
+
+        const savingsPercent =
+          (
+            (savings / vmwareTotalCost) * 100
+          ).toFixed(1);
+
+
+        document.getElementById(
+          'comparisonAmount'
+        ).textContent =
+          `H3C CAS provides a cost advantage of $${Math.abs(savings).toLocaleString()}`;
+
+
+        document.getElementById(
+          'comparisonPercent'
+        ).textContent =
+          `(${savingsPercent}% cost reduction)`;
+
+      }
+
+      else {
+
+        const savingsPercent =
+          (
+            (Math.abs(savings) / h3cTotalCost) * 100
+          ).toFixed(1);
+
+
+        document.getElementById(
+          'comparisonAmount'
+        ).textContent =
+          `VMware vSphere provides a cost advantage of $${Math.abs(savings).toLocaleString()}`;
+
+
+        document.getElementById(
+          'comparisonPercent'
+        ).textContent =
+          `(${savingsPercent}% cost reduction)`;
+
+      }
+
+
+      /*
+       * Show results
+       */
+
+      document.getElementById(
+        'results'
+      ).style.display = 'block';
+
+
+      /*
+       * Scroll to results
+       */
+
+      document.getElementById(
+        'results'
+      ).scrollIntoView({
+        behavior: 'smooth'
+      });
+
+    }
+
+
+    /* =========================
+       RESET
+       ========================= */
+
+    function resetForm() {
+
+      const vmwareProduct =
+        document.getElementById('vmwareProduct');
+
+      const numServers =
+        document.getElementById('numServers');
+
+      const numCPUs =
+        document.getElementById('numCPUs');
+
+      const numCores =
+        document.getElementById('numCores');
+
+
+      /*
+       * Reset values
+       */
+
+      vmwareProduct.selectedIndex = 0;
+
+      numServers.value = '';
+      numCPUs.value = '';
+      numCores.value = '';
+
+
+      /*
+       * Reset VMware select to blue state
+       */
+
+      vmwareProduct.classList.remove(
+        'input-filled'
+      );
+
+      vmwareProduct.classList.add(
+        'placeholder-state'
+      );
+
+
+      /*
+       * Reset input fields to blue state
+       */
+
+      numServers.classList.remove(
+        'input-filled'
+      );
+
+      numCPUs.classList.remove(
+        'input-filled'
+      );
+
+      numCores.classList.remove(
+        'input-filled'
+      );
+
+
+      /*
+       * Hide results
+       */
+
+      document.getElementById(
+        'results'
+      ).style.display = 'none';
+
+    }
+
+
+    /* =========================
+       MORE INFORMATION
+       ========================= */
+
+    function showMoreInformation() {
+
+      alert(
+        'More Information\n\n' +
+        'The calculation compares the estimated 5-year ' +
+        'licensing costs of H3C CAS and VMware vSphere.'
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
