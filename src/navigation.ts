@@ -8,8 +8,8 @@ export const headerData = {
     { text: 'Contact', href: '/contact' },
   ],
   actions: [
-    { text: 'Contact Us', href: 'mailto:info@mindetech.ch' }，
-    { text: 'Request a Consultation', href: '/cas_contact/' },      
+    { text: 'Contact Us', href: 'mailto:info@mindetech.ch' },
+    { text: 'Request a Consultation', href: '/cas_contact/' },     
   ],
 };
 
