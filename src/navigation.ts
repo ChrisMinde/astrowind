@@ -18,22 +18,50 @@ export const footerData = {
     {
       title: 'Company',
       links: [
-        { text: 'About Us', href: '/about' },
+        { text: 'About Us', href: '/about/' },
         { text: 'Solutions & Services', href: '/#solutions' },
+        { text: 'Why Minde', href: '/#why-us' },
       ],
     },
+
+    {
+      title: 'Tools',
+      links: [
+        {
+          text: 'H3C CAS vs VMware vSphere Calculator',
+          href: '/cas_vsphere_calculator/',
+        },
+        {
+          text: 'Request a Consultation',
+          href: '/cas_contact/',
+        },
+      ],
+    },
+
     {
       title: 'Contact',
       links: [
-        { text: 'Email: info@mindetech.ch', href: 'mailto:info@mindetech.ch' },
-        { text: 'Mülistrasse 5, 8320 Fehraltorf, Switzerland', href: '#' },
+        {
+          text: 'General Contact',
+          href: '/contact/',
+        },
+        {
+          text: 'Email: info@mindetech.ch',
+          href: 'mailto:info@mindetech.ch',
+        },
+        {
+          text: 'Mülistrasse 5, 8320 Fehraltorf, Switzerland',
+          href: '#',
+        },
       ],
     },
   ],
+
   secondaryLinks: [
-    { text: 'Impressum', href: '/impressum' },
-    { text: 'Privacy Policy', href: '/privacy' },
+    { text: 'Impressum', href: '/impressum/' },
+    { text: 'Privacy Policy', href: '/privacy/' },
   ],
+
   footNote: `
     © ${new Date().getFullYear()} Minde Technologies GmbH. All rights reserved.
   `,
