@@ -1,8 +1,8 @@
+---
+const title = "H3C CAS vs VMware vSphere License Calculator";
+---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>H3C CAS vs VMware vSphere License Calculator</title>
 
@@ -481,11 +481,7 @@
       }
     }
   </style>
-</head>
-
-<body>
-
-  <div class="container">
+<div class="container">
 
     <!-- =========================
          HEADER
@@ -505,7 +501,7 @@
         <div class="header-logo" aria-label="Logo">
 
           <img
-            src="D:\Minde Technology\minde technologies logo weiss.png"
+            src="/images/minde-technologies-logo-weiss.png"
             alt="Company logo"
             style="max-width: 100%; max-height: 100%; object-fit: contain;"
           >
@@ -575,7 +571,7 @@
             <select
               id="vmwareProduct"
               class="placeholder-state"
-              onchange="updateFieldState(this)"
+              
             >
 
               <option value="" selected>
@@ -616,7 +612,7 @@
               id="numServers"
               min="1"
               placeholder="0"
-              oninput="this.value = Math.abs(this.value); updateFieldState(this)"
+              
             >
 
           </div>
@@ -635,7 +631,7 @@
               id="numCPUs"
               min="1"
               placeholder="0"
-              oninput="this.value = Math.abs(this.value); updateFieldState(this)"
+              
             >
 
           </div>
@@ -654,7 +650,7 @@
               id="numCores"
               min="1"
               placeholder="0"
-              oninput="this.value = Math.abs(this.value); updateFieldState(this)"
+              
             >
 
           </div>
@@ -667,15 +663,19 @@
         <div class="button-row">
 
           <button
+            type="button"
+            id="calculateButton"
             class="calculate-btn"
-            onclick="calculate()"
+            
           >
             Calculate License Costs
           </button>
 
           <button
+            type="button"
+            id="resetButton"
             class="reset-btn"
-            onclick="resetForm()"
+            
           >
             Reset
           </button>
@@ -848,8 +848,10 @@
           <!-- More Information Button -->
 
           <button
+            type="button"
+            id="moreInfoButton"
             class="more-info-btn"
-            onclick="showMoreInformation()"
+            
           >
             More Information
           </button>
@@ -1294,7 +1296,19 @@
 
     }
 
-  </script>
+  
 
-</body>
-</html>
+    document.querySelectorAll('input, select').forEach((field) => {
+      field.addEventListener('input', () => {
+        if (field.type === 'number' && field.value !== '') {
+          field.value = Math.abs(Number(field.value));
+        }
+        updateFieldState(field);
+      });
+      field.addEventListener('change', () => updateFieldState(field));
+    });
+
+    document.getElementById('calculateButton')?.addEventListener('click', calculate);
+    document.getElementById('resetButton')?.addEventListener('click', resetForm);
+    document.getElementById('moreInfoButton')?.addEventListener('click', showMoreInformation);
+  </script>
