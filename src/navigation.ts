@@ -4,9 +4,13 @@ export const headerData = {
     { text: 'Solutions & Services', href: '/#solutions' },
     { text: 'Why Minde', href: '/#why-us' },
     { text: 'About Us', href: '/about' },
+    { text: 'CAS Calculator', href: '/cas_vsphere_calculator/' },
     { text: 'Contact', href: '/contact' },
   ],
-  actions: [{ text: 'Contact Us', href: 'mailto:info@mindetech.ch' }],
+  actions: [
+    { text: 'Contact Us', href: 'mailto:info@mindetech.ch' }，
+    { text: 'Request a Consultation', href: '/cas_contact/' },      
+  ],
 };
 
 export const footerData = {
