@@ -1,1906 +1,1543 @@
 ---
-const title = 'H3C CAS & Virtualization Project Inquiry';
-const description =
-  'Discuss H3C CAS, VMware migration, virtualization and infrastructure requirements with Minde Technologies.';
+const title = "Contact Form – Minde Technologies";
 import logo from "../assets/images/minde-technologies-logo-weiss.png";
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
 
-    <title>{title} | Minde Technologies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <meta name="description" content={description} />
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 25px 15px;
+            color: #333;
+        }
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  </head>
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-left: 1px solid #999;
+            border-right: 1px solid #999;
+        }
 
-  <body>
-    <!-- =========================
-         HEADER
-    ========================== -->
-    <header class="site-header">
-      <div class="header-inner">
-        <a href="/" class="logo-link">
-          <img
-            src="/images/minde-technologies-logo-weiss.png"
-            alt="Minde Technologies"
-            class="logo"
-          />
-        </a>
+        /* ==========================================
+           HEADER
+        ========================================== */
 
-        <nav class="main-nav" aria-label="Main navigation">
-          <a href="/">Home</a>
-          <a href="/#solutions">Solutions &amp; Services</a>
-          <a href="/#why-us">Why Minde</a>
-          <a href="/about/">About Us</a>
-          <a href="/cas_vsphere_calculator/">CAS Calculator</a>
-          <a href="/contact/">Contact</a>
-        </nav>
-      </div>
+        .header {
+            background: #0066cc;
+            color: white;
+            padding: 18px 30px;
+            border-bottom: 4px solid #004c99;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .header-text {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 23px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .header p {
+            font-size: 10px;
+            opacity: 0.95;
+        }
+
+        .header-logo {
+            width: 125px;
+            min-width: 125px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* ==========================================
+           CONTENT
+        ========================================== */
+
+        .content {
+            padding: 25px 30px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 13px 16px;
+            margin-bottom: 18px;
+        }
+
+        .info-box h3 {
+            color: #0066cc;
+            margin-bottom: 5px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .info-box p {
+            color: #495057;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ==========================================
+           INPUT SECTION
+        ========================================== */
+
+        .input-section {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            color: #0066cc;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            padding-bottom: 7px;
+            border-bottom: 2px solid #0066cc;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #495057;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .required {
+            color: #d93025;
+        }
+
+        /* ==========================================
+           INPUT COLORS
+        ========================================== */
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid #8ab4d6;
+            background: #dff1ff;
+            color: #003b70;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            padding: 7px 10px;
+            font-weight: 600;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        input {
+            height: 34px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.4;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #003b70;
+            opacity: 1;
+        }
+
+        /* ==========================================
+           FILLED FIELDS
+        ========================================== */
+
+        input.input-filled,
+        textarea.input-filled {
+            background: #e2f5e9;
+            color: #176b36;
+            border-color: #8ac79e;
+        }
+
+        input.input-filled::placeholder,
+        textarea.input-filled::placeholder {
+            color: #176b36;
+        }
+
+        /* ==========================================
+           FOCUS
+        ========================================== */
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.10);
+        }
+
+        /* ==========================================
+           ERROR
+        ========================================== */
+
+        input.error,
+        textarea.error {
+            border-color: #d93025;
+            background: #fff8f8;
+            color: #b3261e;
+        }
+
+        .error-message {
+            display: none;
+            margin-top: 4px;
+            color: #d93025;
+            font-size: 11px;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        /* ==========================================
+           FORM MESSAGE
+        ========================================== */
+
+        .form-message {
+            display: none;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            line-height: 1.4;
+            border: 1px solid;
+        }
+
+        .form-message.success {
+            display: block;
+            background: #e8f5e9;
+            color: #256029;
+            border-color: #b7dfb9;
+        }
+
+        .form-message.error {
+            display: block;
+            background: #fdecea;
+            color: #b3261e;
+            border-color: #f5c2c0;
+        }
+
+        /* ==========================================
+           REQUEST OPTIONS + MESSAGE
+        ========================================== */
+
+        .message-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .request-options {
+            width: 100%;
+            padding-top: 24px;
+        }
+
+        .request-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .request-option input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            min-width: 17px;
+            margin: 0;
+            padding: 0;
+            accent-color: #0066cc;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        .request-option label {
+            margin: 0;
+            color: #003b70;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .message-field {
+            width: 100%;
+        }
+
+        /* ==========================================
+           CAPTCHA
+        ========================================== */
+
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+        }
+
+        .captcha-question {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .captcha-question span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+            height: 34px;
+            padding: 5px 10px;
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .captcha-input {
+            width: 130px;
+            max-width: 130px;
+        }
+
+        .captcha-refresh {
+            border: none;
+            background: transparent;
+            color: #0066cc;
+            cursor: pointer;
+            font-size: 11px;
+            padding: 3px;
+            font-weight: 600;
+        }
+
+        .captcha-refresh:hover {
+            color: #004c99;
+            text-decoration: underline;
+        }
+
+        /* ==========================================
+           BUTTONS
+        ========================================== */
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .submit-btn,
+        .reset-btn {
+            border: none;
+            padding: 9px 28px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn {
+            background: #0066cc;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background: #0052a3;
+        }
+
+        .submit-btn:disabled {
+            background: #7aaedb;
+            cursor: not-allowed;
+        }
+
+        .reset-btn {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .reset-btn:hover {
+            background: #c9c9c9;
+        }
+
+        /* ==========================================
+           PRIVACY
+        ========================================== */
+
+        .privacy-note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 9px 12px;
+            margin-top: 15px;
+            font-size: 10px;
+            color: #856404;
+            line-height: 1.4;
+        }
+
+        /* ==========================================
+           FOOTER
+        ========================================== */
+
+        .footer {
+            background: #0066cc;
+            color: white;
+            padding: 8px 10px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 11px;
+            opacity: 0.95;
+        }
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 8px;
+            }
+
+            .header {
+                padding: 18px 20px;
+            }
+
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-logo {
+                width: 110px;
+                min-width: 110px;
+                height: 50px;
+            }
+
+            .header h1 {
+                font-size: 21px;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .input-section {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .message-layout {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .request-options {
+                padding-top: 5px;
+                order: 1;
+            }
+
+            .message-field {
+                order: 2;
+            }
+
+            .captcha-box {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .captcha-input {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .button-row {
+                flex-direction: column;
+            }
+
+            .submit-btn,
+            .reset-btn {
+                width: 100%;
+            }
+
+            .footer p {
+                line-height: 1.5;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <header class="header">
+        <div class="header-inner">
+
+            <div class="header-text">
+                <h1>Contact Minde Technologies</h1>
+
+                <p>
+                    Please contact us for further information, consulting
+                    and technical solutions.
+                </p>
+            </div>
+
+            <div class="header-logo">
+                <img
+                    src={logo.src}
+                    alt="Minde Technologies Logo"
+                />
+            </div>
+
+        </div>
     </header>
 
 
-    <!-- =========================
-         HERO
-    ========================== -->
-    <main>
-      <section class="hero">
-        <div class="container hero-inner">
+    <!-- CONTENT -->
 
-          <div class="hero-content">
-            <div class="eyebrow">
-              H3C CAS &amp; Virtualization
-            </div>
+    <main class="content">
 
-            <h1>
-              Project Inquiry
-            </h1>
+        <div class="info-box">
+
+            <h3>Contact Form</h3>
 
             <p>
-              Discuss your virtualization, migration and infrastructure
-              requirements with our technical team.
+                Please complete the following form in full.
+                We will process your request as quickly as possible
+                and get back to you.
+                Fields marked with
+                <span class="required">*</span>
+                are required.
             </p>
-
-            <p class="hero-secondary">
-              Whether you are evaluating H3C CAS, planning a VMware migration,
-              or looking for an enterprise virtualization solution, we are
-              ready to discuss your requirements.
-            </p>
-          </div>
 
         </div>
-      </section>
 
 
-      <!-- =========================
-           MAIN CONTENT
-      ========================== -->
-      <section class="inquiry-section">
-        <div class="container inquiry-grid">
-
-          <!-- =====================
-               LEFT COLUMN
-          ====================== -->
-          <div class="info-column">
-
-            <span class="section-label">
-              HOW CAN WE HELP?
-            </span>
-
-            <h2>
-              Let's discuss your project
-            </h2>
-
-            <p class="intro">
-              Tell us a little about your requirements and our team will
-              contact you to discuss the appropriate solution.
-            </p>
+        <div
+            id="formMessage"
+            class="form-message"
+            role="alert"
+            aria-live="polite">
+        </div>
 
 
-            <div class="service-list">
+        <!--
+            Web3Forms submission endpoint.
 
-              <div class="service-item">
-                <div class="service-icon">
-                  CAS
-                </div>
+            IMPORTANT:
+            Replace YOUR_WEB3FORMS_ACCESS_KEY with your actual
+            Web3Forms Access Key.
+        -->
 
-                <div>
-                  <h3>H3C CAS</h3>
+        <form
+            id="contactForm"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            novalidate>
 
-                  <p>
-                    Discuss H3C Cloud Automation System, licensing options
-                    and deployment requirements.
-                  </p>
-                </div>
-              </div>
+            <!-- Web3Forms configuration -->
 
+            <input
+                type="hidden"
+                name="access_key"
+                value="4271f0da-01f5-4b42-a31c-e2ac8d58e5f4"
+            />
 
-              <div class="service-item">
-                <div class="service-icon">
-                  VM
-                </div>
+            <input
+                type="hidden"
+                name="subject"
+                value="New Contact Request from Minde Technologies"
+            />
 
-                <div>
-                  <h3>VMware Migration</h3>
+            <input
+                type="hidden"
+                name="from_name"
+                value="Minde Technologies Website"
+            />
 
-                  <p>
-                    Discuss virtualization migration planning, compatibility
-                    and infrastructure requirements.
-                  </p>
-                </div>
-              </div>
+            <!--
+                Optional reply-to field.
+                Web3Forms will use the visitor's email address
+                as the reply-to address.
+            -->
 
+            <input
+                type="hidden"
+                name="replyto"
+                id="replyto"
+                value=""
+            />
 
-              <div class="service-item">
-                <div class="service-icon">
-                  VS
-                </div>
+            <!-- Honeypot anti-spam field -->
 
-                <div>
-                  <h3>Virtualization</h3>
-
-                  <p>
-                    Explore virtualization architecture and enterprise
-                    infrastructure solutions.
-                  </p>
-                </div>
-              </div>
-
-
-              <div class="service-item">
-                <div class="service-icon">
-                  $
-                </div>
-
-                <div>
-                  <h3>Licensing &amp; Cost</h3>
-
-                  <p>
-                    Compare licensing options and discuss potential cost
-                    considerations for your environment.
-                  </p>
-                </div>
-              </div>
-
-            </div>
+            <input
+                type="checkbox"
+                name="botcheck"
+                tabindex="-1"
+                autocomplete="off"
+                style="display: none;"
+            />
 
 
-            <!-- Calculator CTA -->
-            <div class="calculator-card">
+            <!-- CONTACT DETAILS -->
 
-              <span class="calculator-label">
-                NEED A QUICK COST COMPARISON?
-              </span>
+            <section class="input-section">
 
-              <h3>
-                H3C CAS vs VMware vSphere
-              </h3>
-
-              <p>
-                Use our license calculator to compare estimated
-                virtualization licensing costs.
-              </p>
-
-              <a
-                href="/cas_vsphere_calculator/"
-                class="calculator-link"
-              >
-                Open License Calculator
-                <span aria-hidden="true">→</span>
-              </a>
-
-            </div>
-
-          </div>
-
-
-          <!-- =====================
-               RIGHT COLUMN
-          ====================== -->
-          <div class="form-column">
-
-            <div class="form-card">
-
-              <div class="form-header">
-                <span class="section-label">
-                  CONTACT OUR TEAM
-                </span>
-
-                <h2>
-                  Request a Consultation
+                <h2 class="section-title">
+                    Contact Details
                 </h2>
 
-                <p>
-                  Please provide your contact details and tell us about
-                  your requirements.
-                </p>
-              </div>
+                <div class="input-grid">
+
+                    <!-- COMPANY -->
+
+                    <div class="input-group full-width">
+
+                        <label for="firma">
+                            Company
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="firma"
+                            name="firma"
+                            autocomplete="organization"
+                            placeholder="Your company"
+                            required
+                        />
+
+                        <div
+                            id="firmaError"
+                            class="error-message">
+                            Please enter your company name.
+                        </div>
+
+                    </div>
 
 
-              <!-- =====================
-                   WEB3FORMS
-              ====================== -->
-              <form
-                id="contactForm"
-                action="https://api.web3forms.com/submit"
-                method="POST"
-                novalidate
-              >
+                    <!-- LAST NAME -->
 
-                <!-- Web3Forms configuration -->
-                <input
-                  type="hidden"
-                  name="access_key"
-                  value="4271f0da-01f5-4b42-a31c-e2ac8d58e5f4"
-                />
+                    <div class="input-group">
 
-                <input
-                  type="hidden"
-                  name="subject"
-                  value="New H3C CAS / Virtualization Project Inquiry"
-                />
+                        <label for="name">
+                            Last Name
+                            <span class="required">*</span>
+                        </label>
 
-                <input
-                  type="hidden"
-                  name="from_name"
-                  value="Minde Technologies Website"
-                />
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            autocomplete="family-name"
+                            placeholder="Last name"
+                            required
+                        />
 
-                <!-- Redirect is not used because we handle the response
-                     with JavaScript -->
-                <input
-                  type="hidden"
-                  name="redirect"
-                  value=""
-                />
+                        <div
+                            id="nameError"
+                            class="error-message">
+                            Please enter your last name.
+                        </div>
 
-                <!-- Honeypot -->
-                <input
-                  type="checkbox"
-                  name="botcheck"
-                  tabindex="-1"
-                  autocomplete="off"
-                  class="hidden-field"
-                />
+                    </div>
 
 
-                <!-- Company -->
-                <div class="form-group">
-                  <label for="firma">
-                    Company <span>*</span>
-                  </label>
+                    <!-- FIRST NAME -->
 
-                  <input
-                    type="text"
-                    id="firma"
-                    name="firma"
-                    autocomplete="organization"
-                    required
-                  />
+                    <div class="input-group">
 
-                  <small class="error-message"></small>
+                        <label for="vorname">
+                            First Name
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="vorname"
+                            name="vorname"
+                            autocomplete="given-name"
+                            placeholder="First name"
+                            required
+                        />
+
+                        <div
+                            id="vornameError"
+                            class="error-message">
+                            Please enter your first name.
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="input-group">
+
+                        <label for="email">
+                            Email Address
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            autocomplete="email"
+                            placeholder="name@example.com"
+                            required
+                        />
+
+                        <div
+                            id="emailError"
+                            class="error-message">
+                            Please enter a valid email address.
+                        </div>
+
+                    </div>
+
+
+                    <!-- TELEPHONE -->
+
+                    <div class="input-group">
+
+                        <label for="telefon">
+                            Telephone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="telefon"
+                            name="telefon"
+                            autocomplete="tel"
+                            placeholder="+41 44 123 45 67"
+                        />
+
+                    </div>
+
+
+                    <!-- MOBILE -->
+
+                    <div class="input-group">
+
+                        <label for="mobile">
+                            Mobile Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="mobile"
+                            name="mobile"
+                            autocomplete="tel"
+                            placeholder="+41 79 123 45 67"
+                        />
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="input-group">
+
+                        <label for="adresse">
+                            Address
+                        </label>
+
+                        <input
+                            type="text"
+                            id="adresse"
+                            name="adresse"
+                            autocomplete="street-address"
+                            placeholder="Street and house number"
+                        />
+
+                    </div>
+
+
+                    <!-- POSTAL CODE -->
+
+                    <div class="input-group">
+
+                        <label for="plz">
+                            Postal Code
+                        </label>
+
+                        <input
+                            type="text"
+                            id="plz"
+                            name="plz"
+                            autocomplete="postal-code"
+                            placeholder="8320"
+                            inputmode="numeric"
+                        />
+
+                    </div>
+
+
+                    <!-- CITY -->
+
+                    <div class="input-group">
+
+                        <label for="ort">
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            id="ort"
+                            name="ort"
+                            autocomplete="address-level2"
+                            placeholder="Fehraltorf"
+                        />
+
+                    </div>
+
                 </div>
 
-
-                <!-- Name row -->
-                <div class="form-row">
-
-                  <div class="form-group">
-                    <label for="name">
-                      Last Name <span>*</span>
-                    </label>
-
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      autocomplete="family-name"
-                      required
-                    />
-
-                    <small class="error-message"></small>
-                  </div>
+            </section>
 
 
-                  <div class="form-group">
-                    <label for="vorname">
-                      First Name
-                    </label>
+            <!-- MESSAGE + REQUEST OPTIONS -->
 
-                    <input
-                      type="text"
-                      id="vorname"
-                      name="vorname"
-                      autocomplete="given-name"
-                    />
+            <section class="input-section">
 
-                    <small class="error-message"></small>
-                  </div>
+                <h2 class="section-title">
+                    Your Message
+                </h2>
 
-                </div>
+                <div class="message-layout">
 
+                    <!-- REQUEST OPTIONS -->
 
-                <!-- Email -->
-                <div class="form-group">
-                  <label for="email">
-                    Email <span>*</span>
-                  </label>
+                    <div class="request-options">
 
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    autocomplete="email"
-                    required
-                  />
+                        <div class="request-option">
 
-                  <small class="error-message"></small>
-                </div>
+                            <input
+                                type="checkbox"
+                                id="demo"
+                                name="requestType[]"
+                                value="I would like to schedule a demo"
+                            />
+
+                            <label for="demo">
+                                I would like to schedule a demo
+                            </label>
+
+                        </div>
 
 
-                <!-- Telephone row -->
-                <div class="form-row">
+                        <div class="request-option">
 
-                  <div class="form-group">
-                    <label for="telefon">
-                      Telephone
-                    </label>
+                            <input
+                                type="checkbox"
+                                id="contact"
+                                name="requestType[]"
+                                value="Please contact me"
+                            />
 
-                    <input
-                      type="tel"
-                      id="telefon"
-                      name="telefon"
-                      autocomplete="tel"
-                    />
-                  </div>
+                            <label for="contact">
+                                Please contact me
+                            </label>
 
-
-                  <div class="form-group">
-                    <label for="mobile">
-                      Mobile
-                    </label>
-
-                    <input
-                      type="tel"
-                      id="mobile"
-                      name="mobile"
-                      autocomplete="tel"
-                    />
-                  </div>
-
-                </div>
+                        </div>
 
 
-                <!-- Address -->
-                <div class="form-group">
-                  <label for="adresse">
-                    Address
-                  </label>
+                        <div class="request-option">
 
-                  <input
-                    type="text"
-                    id="adresse"
-                    name="adresse"
-                    autocomplete="street-address"
-                  />
-                </div>
+                            <input
+                                type="checkbox"
+                                id="information"
+                                name="requestType[]"
+                                value="Please send me more information"
+                            />
 
+                            <label for="information">
+                                Please send me more information
+                            </label>
 
-                <!-- Postal / City -->
-                <div class="form-row">
+                        </div>
 
-                  <div class="form-group">
-                    <label for="plz">
-                      Postal Code
-                    </label>
-
-                    <input
-                      type="text"
-                      id="plz"
-                      name="plz"
-                      autocomplete="postal-code"
-                    />
-                  </div>
+                    </div>
 
 
-                  <div class="form-group">
-                    <label for="ort">
-                      City
-                    </label>
+                    <!-- MESSAGE -->
 
-                    <input
-                      type="text"
-                      id="ort"
-                      name="ort"
-                      autocomplete="address-level2"
-                    />
-                  </div>
+                    <div class="input-group message-field">
+
+                        <label for="nachricht">
+                            Message
+                            <span class="required">*</span>
+                        </label>
+
+                        <textarea
+                            id="nachricht"
+                            name="nachricht"
+                            placeholder="How can we help you?"
+                            required
+                        ></textarea>
+
+                        <div
+                            id="nachrichtError"
+                            class="error-message">
+                            Please enter a message.
+                        </div>
+
+                    </div>
 
                 </div>
 
-
-                <!-- Request Type -->
-                <fieldset class="request-types">
-
-                  <legend>
-                    How can we help?
-                  </legend>
-
-                  <div class="checkbox-grid">
-
-                    <label class="checkbox-item">
-                      <input
-                        type="checkbox"
-                        name="requestType[]"
-                        value="H3C CAS"
-                      />
-                      <span>H3C CAS</span>
-                    </label>
+            </section>
 
 
-                    <label class="checkbox-item">
-                      <input
-                        type="checkbox"
-                        name="requestType[]"
-                        value="VMware / vSphere"
-                      />
-                      <span>VMware / vSphere</span>
-                    </label>
+            <!-- CAPTCHA -->
 
+            <section class="input-section">
 
-                    <label class="checkbox-item">
-                      <input
-                        type="checkbox"
-                        name="requestType[]"
-                        value="Migration"
-                      />
-                      <span>Migration</span>
-                    </label>
+                <h2 class="section-title">
+                    Security Check
+                </h2>
 
+                <label>
+                    Please solve the following task
+                    <span class="required">*</span>
+                </label>
 
-                    <label class="checkbox-item">
-                      <input
-                        type="checkbox"
-                        name="requestType[]"
-                        value="Virtualization"
-                      />
-                      <span>Virtualization</span>
-                    </label>
-
-
-                    <label class="checkbox-item">
-                      <input
-                        type="checkbox"
-                        name="requestType[]"
-                        value="Infrastructure"
-                      />
-                      <span>Infrastructure</span>
-                    </label>
-
-
-                    <label class="checkbox-item">
-                      <input
-                        type="checkbox"
-                        name="requestType[]"
-                        value="Other"
-                      />
-                      <span>Other</span>
-                    </label>
-
-                  </div>
-
-                </fieldset>
-
-
-                <!-- Message -->
-                <div class="form-group">
-                  <label for="nachricht">
-                    Message
-                  </label>
-
-                  <textarea
-                    id="nachricht"
-                    name="nachricht"
-                    rows="6"
-                    placeholder="Please briefly describe your requirements..."
-                  ></textarea>
-                </div>
-
-
-                <!-- CAPTCHA -->
                 <div class="captcha-box">
 
-                  <label for="captchaAnswer">
-                    Security check:
-                    <strong id="captchaQuestion"></strong>
-                  </label>
+                    <div class="captcha-question">
 
-                  <input
-                    type="number"
-                    id="captchaAnswer"
-                    name="captchaAnswer"
-                    inputmode="numeric"
-                    required
-                  />
+                        <span id="captchaQuestion">
+                            0 + 0 = ?
+                        </span>
 
-                  <input
-                    type="hidden"
-                    id="captchaExpected"
-                  />
+                        <button
+                            type="button"
+                            class="captcha-refresh"
+                            id="captchaRefresh">
+                            New Task
+                        </button>
 
-                  <small
-                    id="captchaError"
-                    class="error-message"
-                  ></small>
+                    </div>
+
+                    <input
+                        type="number"
+                        id="captchaAnswer"
+                        name="captcha"
+                        class="captcha-input"
+                        placeholder="Answer"
+                        required
+                    />
+
+                    <div
+                        id="captchaError"
+                        class="error-message">
+                        The CAPTCHA answer is incorrect.
+                    </div>
 
                 </div>
 
+            </section>
 
-                <!-- Buttons -->
-                <div class="form-actions">
 
-                  <button
+            <!-- BUTTONS -->
+
+            <div class="button-row">
+
+                <button
                     type="submit"
-                    class="submit-button"
-                    id="submitButton"
-                  >
-                    Send Request
-                  </button>
+                    class="submit-btn"
+                    id="submitButton">
+                    Send
+                </button>
 
-                  <button
+                <button
                     type="reset"
-                    class="reset-button"
-                    id="resetButton"
-                  >
+                    class="reset-btn"
+                    id="resetButton">
                     Reset
-                  </button>
-
-                </div>
-
-
-                <!-- Status -->
-                <div
-                  id="formStatus"
-                  class="form-status"
-                  role="status"
-                  aria-live="polite"
-                ></div>
-
-              </form>
+                </button>
 
             </div>
 
-          </div>
 
-        </div>
-      </section>
+            <!-- PRIVACY -->
 
+            <div class="privacy-note">
 
-      <!-- =========================
-           BOTTOM CTA
-      ========================== -->
-      <section class="bottom-cta">
+                <strong>Privacy Notice:</strong>
 
-        <div class="container">
+                <br />
 
-          <div class="bottom-cta-inner">
+                By submitting this form, the data you enter will be
+                transmitted for the purpose of processing your request.
 
-            <div>
-              <span class="section-label">
-                NOT SURE WHERE TO START?
-              </span>
+                <br />
 
-              <h2>
-                Compare CAS and VMware licensing costs
-              </h2>
+                For productive use, this notice must be adapted
+                in accordance with your privacy policy and
+                applicable data protection regulations.
 
-              <p>
-                Use our calculator to get an estimated licensing cost
-                comparison before discussing your project with our team.
-              </p>
             </div>
 
-
-            <a
-              href="/cas_vsphere_calculator/"
-              class="bottom-cta-button"
-            >
-              Open CAS Calculator
-              <span aria-hidden="true">→</span>
-            </a>
-
-          </div>
-
-        </div>
-
-      </section>
+        </form>
 
     </main>
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
-    <footer class="site-footer">
+    <!-- FOOTER -->
 
-      <div class="container footer-inner">
+    <footer class="footer">
 
-        <div>
-          <img
-            src={logo.src}
-            alt="Minde Technologies logo"
-            class="footer-logo"
-          />
-        </div>
-
-
-        <div class="footer-contact">
-
-          <strong>Minde Technologies GmbH</strong>
-
-          <span>
-            Mülistrasse 5, 8320 Fehraltorf, Switzerland
-          </span>
-
-          <a href="mailto:info@mindetech.ch">
-            info@mindetech.ch
-          </a>
-
-          <a href="tel:+41783123805">
-            +41 78 312 38 05
-          </a>
-
-        </div>
-
-
-        <div class="footer-links">
-
-          <a href="/contact/">
-            General Contact
-          </a>
-
-          <a href="/impressum/">
-            Impressum
-          </a>
-
-          <a href="/privacy/">
-            Privacy Policy
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="footer-bottom">
-
-        © {new Date().getFullYear()}
-        Minde Technologies GmbH. All rights reserved.
-
-      </div>
+        <p>
+            Minde Technologies GmbH -
+            Mülistrasse 5 -
+            8320 Fehraltorf -
+            Switzerland -
+            +41 78 312 38 05 -
+            info@mindetech.ch -
+            www.mindetech.ch
+        </p>
 
     </footer>
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
-    <script>
-      const form = document.getElementById('contactForm');
-      const submitButton = document.getElementById('submitButton');
-      const resetButton = document.getElementById('resetButton');
-
-      const captchaQuestion =
-        document.getElementById('captchaQuestion');
-
-      const captchaExpected =
-        document.getElementById('captchaExpected');
-
-      const captchaAnswer =
-        document.getElementById('captchaAnswer');
-
-      const captchaError =
-        document.getElementById('captchaError');
-
-      const formStatus =
-        document.getElementById('formStatus');
+</div>
 
 
-      /*
-       * Generate CAPTCHA
-       */
-      function generateCaptcha() {
+<!-- Web3Forms + Contact Form JavaScript -->
+
+<script>
+    const form = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+    const submitButton = document.getElementById("submitButton");
+    const resetButton = document.getElementById("resetButton");
+
+    const emailInput = document.getElementById("email");
+
+    const captchaQuestion = document.getElementById("captchaQuestion");
+    const captchaAnswer = document.getElementById("captchaAnswer");
+    const captchaRefresh = document.getElementById("captchaRefresh");
+
+    let captchaResult = 0;
+
+
+    /* ==========================================
+       CAPTCHA
+    ========================================== */
+
+    function generateCaptcha() {
         const first = Math.floor(Math.random() * 9) + 1;
         const second = Math.floor(Math.random() * 9) + 1;
 
+        captchaResult = first + second;
+
         captchaQuestion.textContent =
-          `${first} + ${second} = ?`;
+            `${first} + ${second} = ?`;
 
-        captchaExpected.value = String(first + second);
+        captchaAnswer.value = "";
 
-        captchaAnswer.value = '';
+        captchaAnswer.classList.remove("error");
 
-        captchaError.textContent = '';
-      }
-
-
-      /*
-       * Validate CAPTCHA
-       */
-      function validateCaptcha() {
-        const answer =
-          Number(captchaAnswer.value);
-
-        const expected =
-          Number(captchaExpected.value);
-
-        if (!captchaAnswer.value) {
-          captchaError.textContent =
-            'Please complete the security check.';
-
-          return false;
-        }
-
-        if (answer !== expected) {
-          captchaError.textContent =
-            'Incorrect answer. Please try again.';
-
-          return false;
-        }
-
-        captchaError.textContent = '';
-
-        return true;
-      }
+        document
+            .getElementById("captchaError")
+            ?.classList.remove("visible");
+    }
 
 
-      /*
-       * Basic form validation
-       */
-      function validateForm() {
+    /* ==========================================
+       ERROR HANDLING
+    ========================================== */
+
+    function clearErrors() {
+
+        document
+            .querySelectorAll(".error")
+            .forEach((element) => {
+                element.classList.remove("error");
+            });
+
+        document
+            .querySelectorAll(".error-message")
+            .forEach((element) => {
+                element.classList.remove("visible");
+            });
+    }
+
+
+    function showError(inputId, errorId) {
+
+        const input = document.getElementById(inputId);
+        const error = document.getElementById(errorId);
+
+        input?.classList.add("error");
+        error?.classList.add("visible");
+    }
+
+
+    /* ==========================================
+       FORM VALIDATION
+    ========================================== */
+
+    function validateForm() {
+
+        clearErrors();
 
         let valid = true;
 
-        const requiredFields =
-          form.querySelectorAll('[required]');
+        const company = document.getElementById("firma");
+        const lastName = document.getElementById("name");
+        const firstName = document.getElementById("vorname");
+        const email = document.getElementById("email");
+        const message = document.getElementById("nachricht");
 
-        requiredFields.forEach((field) => {
 
-          if (
-            field.id === 'captchaAnswer'
-          ) {
-            return;
-          }
+        if (!company.value.trim()) {
 
-          if (!field.value.trim()) {
-
-            field.classList.add('input-error');
+            showError(
+                "firma",
+                "firmaError"
+            );
 
             valid = false;
-
-          } else {
-
-            field.classList.remove('input-error');
-
-          }
-
-        });
+        }
 
 
-        const email =
-          document.getElementById('email');
+        if (!lastName.value.trim()) {
+
+            showError(
+                "name",
+                "nameError"
+            );
+
+            valid = false;
+        }
+
+
+        if (!firstName.value.trim()) {
+
+            showError(
+                "vorname",
+                "vornameError"
+            );
+
+            valid = false;
+        }
+
+
+        const emailValue =
+            email.value.trim();
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (!emailPattern.test(emailValue)) {
+
+            showError(
+                "email",
+                "emailError"
+            );
+
+            valid = false;
+        }
+
+
+        if (!message.value.trim()) {
+
+            showError(
+                "nachricht",
+                "nachrichtError"
+            );
+
+            valid = false;
+        }
+
+
+        const answer =
+            Number(captchaAnswer.value);
+
 
         if (
-          email.value &&
-          !email.validity.valid
+            !captchaAnswer.value.trim() ||
+            answer !== captchaResult
         ) {
 
-          email.classList.add('input-error');
+            showError(
+                "captchaAnswer",
+                "captchaError"
+            );
 
-          valid = false;
+            valid = false;
+        }
 
+
+        if (!valid) {
+
+            formMessage.className =
+                "form-message error";
+
+            formMessage.textContent =
+                "Please correct the highlighted fields and try again.";
+
+            formMessage.style.display =
+                "block";
         }
 
 
         return valid;
-      }
+    }
 
 
-      /*
-       * Submit form
-       */
-      form.addEventListener('submit', async (event) => {
+    /* ==========================================
+       FIELD STATE
+    ========================================== */
 
-        event.preventDefault();
+    function updateFieldState(input) {
 
-        formStatus.textContent = '';
-        formStatus.className = 'form-status';
+        if (!input) return;
 
 
-        if (!validateForm()) {
+        if (input.value.trim()) {
 
-          formStatus.textContent =
-            'Please complete the required fields.';
-
-          formStatus.classList.add('error');
-
-          return;
-        }
-
-
-        if (!validateCaptcha()) {
-
-          formStatus.textContent =
-            'Please complete the security check.';
-
-          formStatus.classList.add('error');
-
-          return;
-        }
-
-
-        submitButton.disabled = true;
-
-        submitButton.textContent =
-          'Sending...';
-
-
-        try {
-
-          const formData =
-            new FormData(form);
-
-          const response =
-            await fetch(
-              'https://api.web3forms.com/submit',
-              {
-                method: 'POST',
-                body: formData,
-              }
+            input.classList.add(
+                "input-filled"
             );
 
+        } else {
 
-          const result =
-            await response.json();
-
-
-          if (result.success) {
-
-            formStatus.textContent =
-              'Thank you. Your request has been sent successfully. We will contact you shortly.';
-
-            formStatus.classList.add('success');
-
-            form.reset();
-
-            generateCaptcha();
-
-          } else {
-
-            throw new Error(
-              result.message ||
-              'Unable to submit the form.'
+            input.classList.remove(
+                "input-filled"
             );
-
-          }
-
-        } catch (error) {
-
-          console.error(
-            'Web3Forms submission error:',
-            error
-          );
-
-          formStatus.textContent =
-            'Sorry, we could not send your request. Please try again or contact us by email.';
-
-          formStatus.classList.add('error');
-
-        } finally {
-
-          submitButton.disabled = false;
-
-          submitButton.textContent =
-            'Send Request';
-
         }
 
-      });
+
+        input.classList.remove(
+            "error"
+        );
 
 
-      /*
-       * Reset
-       */
-      resetButton.addEventListener('click', () => {
-
-        formStatus.textContent = '';
-
-        formStatus.className =
-          'form-status';
+        const errorId =
+            `${input.id}Error`;
 
         document
-          .querySelectorAll('.input-error')
-          .forEach((element) => {
-            element.classList.remove('input-error');
-          });
+            .getElementById(errorId)
+            ?.classList.remove("visible");
+    }
 
-        generateCaptcha();
 
-      });
+    document
+        .querySelectorAll(
+            "input:not([type='checkbox']), textarea"
+        )
+        .forEach((input) => {
 
+            input.addEventListener(
+                "input",
+                () => updateFieldState(input)
+            );
 
-      /*
-       * Generate first CAPTCHA
-       */
-      generateCaptcha();
-    </script>
+        });
 
 
-    <!-- =========================
-         CSS
-    ========================== -->
-    <style>
+    /* ==========================================
+       REPLY-TO
+    ========================================== */
 
-      * {
-        box-sizing: border-box;
-      }
+    emailInput?.addEventListener(
+        "input",
+        () => {
 
+            const replyTo =
+                document.getElementById("replyto");
 
-      html {
-        scroll-behavior: smooth;
-      }
+            if (replyTo) {
+                replyTo.value =
+                    emailInput.value.trim();
+            }
 
-
-      body {
-        margin: 0;
-        font-family:
-          Inter,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          Helvetica,
-          Arial,
-          sans-serif;
-
-        color: #172033;
-        background: #ffffff;
-        line-height: 1.6;
-      }
-
-
-      a {
-        color: inherit;
-      }
-
-
-      .container {
-        width: min(1180px, calc(100% - 40px));
-        margin: 0 auto;
-      }
-
-
-      /* =========================
-         HEADER
-      ========================== */
-
-      .site-header {
-        background: #07111f;
-        color: #ffffff;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-      }
-
-
-      .header-inner {
-        min-height: 76px;
-        width: min(1180px, calc(100% - 40px));
-        margin: 0 auto;
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 30px;
-      }
-
-
-      .logo-link {
-        display: flex;
-        align-items: center;
-      }
-
-
-      .logo {
-        width: 175px;
-        height: auto;
-        display: block;
-      }
-
-
-      .main-nav {
-        display: flex;
-        align-items: center;
-        gap: 26px;
-      }
-
-
-      .main-nav a {
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 500;
-        opacity: 0.9;
-        transition: opacity 0.2s ease;
-      }
-
-
-      .main-nav a:hover {
-        opacity: 1;
-      }
-
-
-      /* =========================
-         HERO
-      ========================== */
-
-      .hero {
-        background: #07111f;
-        color: #ffffff;
-        padding: 85px 0 90px;
-      }
-
-
-      .hero-inner {
-        display: flex;
-        justify-content: center;
-        text-align: center;
-      }
-
-
-      .hero-content {
-        max-width: 850px;
-      }
-
-
-      .eyebrow {
-        display: inline-block;
-
-        margin-bottom: 18px;
-
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-
-        opacity: 0.7;
-      }
-
-
-      .hero h1 {
-        margin: 0 0 20px;
-
-        font-size: clamp(42px, 6vw, 64px);
-        line-height: 1.08;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-      }
-
-
-      .hero p {
-        margin: 0 auto;
-
-        max-width: 760px;
-
-        font-size: 20px;
-        line-height: 1.65;
-
-        opacity: 0.92;
-      }
-
-
-      .hero-secondary {
-        margin-top: 18px !important;
-        font-size: 16px !important;
-        opacity: 0.65 !important;
-      }
-
-
-      /* =========================
-         INQUIRY SECTION
-      ========================== */
-
-      .inquiry-section {
-        padding: 90px 0;
-        background: #f6f8fb;
-      }
-
-
-      .inquiry-grid {
-        display: grid;
-        grid-template-columns:
-          minmax(0, 0.9fr)
-          minmax(0, 1.1fr);
-
-        gap: 70px;
-
-        align-items: start;
-      }
-
-
-      .section-label {
-        display: block;
-
-        margin-bottom: 12px;
-
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.13em;
-
-        color: #52657d;
-      }
-
-
-      .info-column h2,
-      .form-header h2 {
-        margin: 0 0 18px;
-
-        font-size: 34px;
-        line-height: 1.2;
-        letter-spacing: -0.02em;
-      }
-
-
-      .intro {
-        margin: 0 0 35px;
-
-        color: #5c6878;
-        font-size: 16px;
-      }
-
-
-      /* =========================
-         SERVICES
-      ========================== */
-
-      .service-list {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-      }
-
-
-      .service-item {
-        display: grid;
-
-        grid-template-columns: 48px 1fr;
-
-        gap: 16px;
-      }
-
-
-      .service-icon {
-        width: 48px;
-        height: 48px;
-
-        border-radius: 10px;
-
-        background: #e8edf5;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        color: #182c48;
-
-        font-size: 12px;
-        font-weight: 800;
-      }
-
-
-      .service-item h3 {
-        margin: 0 0 5px;
-
-        font-size: 17px;
-      }
-
-
-      .service-item p {
-        margin: 0;
-
-        color: #687587;
-
-        font-size: 14px;
-        line-height: 1.65;
-      }
-
-
-      /* =========================
-         CALCULATOR CARD
-      ========================== */
-
-      .calculator-card {
-        margin-top: 45px;
-
-        padding: 28px;
-
-        background: #ffffff;
-
-        border: 1px solid #e1e6ed;
-
-        border-radius: 14px;
-      }
-
-
-      .calculator-label {
-        display: block;
-
-        margin-bottom: 8px;
-
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-
-        color: #6c7888;
-      }
-
-
-      .calculator-card h3 {
-        margin: 0 0 8px;
-
-        font-size: 20px;
-      }
-
-
-      .calculator-card p {
-        margin: 0 0 18px;
-
-        color: #697688;
-        font-size: 14px;
-      }
-
-
-      .calculator-link {
-        color: #172f50;
-
-        text-decoration: none;
-
-        font-size: 14px;
-        font-weight: 700;
-      }
-
-
-      .calculator-link:hover {
-        text-decoration: underline;
-      }
-
-
-      /* =========================
-         FORM CARD
-      ========================== */
-
-      .form-card {
-        padding: 42px;
-
-        background: #ffffff;
-
-        border: 1px solid #e1e6ed;
-
-        border-radius: 16px;
-
-        box-shadow:
-          0 15px 45px rgba(17, 31, 52, 0.07);
-      }
-
-
-      .form-header {
-        margin-bottom: 30px;
-      }
-
-
-      .form-header p {
-        margin: 0;
-
-        color: #687587;
-        font-size: 15px;
-      }
-
-
-      /* =========================
-         FORM
-      ========================== */
-
-      .form-group {
-        margin-bottom: 20px;
-      }
-
-
-      .form-row {
-        display: grid;
-
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-
-        gap: 16px;
-      }
-
-
-      label,
-      legend {
-        display: block;
-
-        margin-bottom: 7px;
-
-        color: #27364a;
-
-        font-size: 13px;
-        font-weight: 600;
-      }
-
-
-      label span {
-        color: #a14b4b;
-      }
-
-
-      input,
-      textarea {
-        width: 100%;
-
-        border: 1px solid #ccd4df;
-
-        border-radius: 7px;
-
-        background: #ffffff;
-
-        color: #172033;
-
-        padding: 12px 13px;
-
-        font-family: inherit;
-        font-size: 14px;
-
-        outline: none;
-
-        transition:
-          border-color 0.2s ease,
-          box-shadow 0.2s ease;
-      }
-
-
-      input:focus,
-      textarea:focus {
-        border-color: #607895;
-
-        box-shadow:
-          0 0 0 3px rgba(96, 120, 149, 0.12);
-      }
-
-
-      textarea {
-        resize: vertical;
-        min-height: 130px;
-      }
-
-
-      .input-error {
-        border-color: #b45c5c !important;
-      }
-
-
-      .error-message {
-        display: block;
-
-        min-height: 18px;
-
-        margin-top: 5px;
-
-        color: #a14b4b;
-
-        font-size: 12px;
-      }
-
-
-      /* =========================
-         REQUEST TYPES
-      ========================== */
-
-      .request-types {
-        margin: 5px 0 22px;
-
-        padding: 0;
-
-        border: 0;
-      }
-
-
-      .request-types legend {
-        margin-bottom: 12px;
-      }
-
-
-      .checkbox-grid {
-        display: grid;
-
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-
-        gap: 10px;
-      }
-
-
-      .checkbox-item {
-        display: flex;
-
-        align-items: center;
-
-        gap: 9px;
-
-        margin: 0;
-
-        padding: 10px 12px;
-
-        border: 1px solid #e0e5ec;
-
-        border-radius: 7px;
-
-        cursor: pointer;
-
-        font-weight: 400;
-
-        transition:
-          border-color 0.2s ease,
-          background 0.2s ease;
-      }
-
-
-      .checkbox-item:hover {
-        border-color: #aeb9c8;
-        background: #fafbfd;
-      }
-
-
-      .checkbox-item input {
-        width: auto;
-        margin: 0;
-      }
-
-
-      .checkbox-item span {
-        color: #3d4b5e;
-        font-size: 13px;
-      }
-
-
-      /* =========================
-         CAPTCHA
-      ========================== */
-
-      .captcha-box {
-        margin: 25px 0;
-
-        padding: 18px;
-
-        border: 1px solid #e0e5ec;
-
-        border-radius: 8px;
-
-        background: #fafbfd;
-      }
-
-
-      .captcha-box label {
-        margin-bottom: 10px;
-      }
-
-
-      .captcha-box input {
-        max-width: 180px;
-      }
-
-
-      /* =========================
-         BUTTONS
-      ========================== */
-
-      .form-actions {
-        display: flex;
-
-        align-items: center;
-
-        gap: 12px;
-
-        margin-top: 25px;
-      }
-
-
-      button {
-        font-family: inherit;
-        cursor: pointer;
-      }
-
-
-      .submit-button {
-        padding: 13px 25px;
-
-        border: 0;
-        border-radius: 7px;
-
-        background: #172f50;
-
-        color: #ffffff;
-
-        font-size: 14px;
-        font-weight: 700;
-
-        transition:
-          background 0.2s ease,
-          opacity 0.2s ease;
-      }
-
-
-      .submit-button:hover {
-        background: #0f233d;
-      }
-
-
-      .submit-button:disabled {
-        cursor: wait;
-        opacity: 0.65;
-      }
-
-
-      .reset-button {
-        padding: 12px 20px;
-
-        border: 1px solid #cbd3de;
-
-        border-radius: 7px;
-
-        background: #ffffff;
-
-        color: #536174;
-
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-
-      .reset-button:hover {
-        background: #f5f7fa;
-      }
-
-
-      /* =========================
-         FORM STATUS
-      ========================== */
-
-      .form-status {
-        display: none;
-
-        margin-top: 20px;
-
-        padding: 13px 15px;
-
-        border-radius: 7px;
-
-        font-size: 14px;
-      }
-
-
-      .form-status.success {
-        display: block;
-
-        background: #edf7f1;
-        color: #27633e;
-        border: 1px solid #cce8d6;
-      }
-
-
-      .form-status.error {
-        display: block;
-
-        background: #fbefef;
-        color: #8b3f3f;
-        border: 1px solid #edcccc;
-      }
-
-
-      .hidden-field {
-        display: none !important;
-      }
-
-
-      /* =========================
-         BOTTOM CTA
-      ========================== */
-
-      .bottom-cta {
-        padding: 75px 0;
-
-        background: #ffffff;
-      }
-
-
-      .bottom-cta-inner {
-        display: flex;
-
-        align-items: center;
-        justify-content: space-between;
-
-        gap: 40px;
-
-        padding: 45px;
-
-        background: #f3f6fa;
-
-        border-radius: 16px;
-      }
-
-
-      .bottom-cta h2 {
-        margin: 0 0 12px;
-
-        font-size: 30px;
-        line-height: 1.2;
-      }
-
-
-      .bottom-cta p {
-        max-width: 650px;
-
-        margin: 0;
-
-        color: #697688;
-      }
-
-
-      .bottom-cta-button {
-        flex-shrink: 0;
-
-        display: inline-flex;
-
-        align-items: center;
-
-        gap: 10px;
-
-        padding: 14px 22px;
-
-        border-radius: 7px;
-
-        background: #172f50;
-
-        color: #ffffff;
-
-        text-decoration: none;
-
-        font-size: 14px;
-        font-weight: 700;
-
-        white-space: nowrap;
-      }
-
-
-      .bottom-cta-button:hover {
-        background: #0f233d;
-      }
-
-
-      /* =========================
-         FOOTER
-      ========================== */
-
-      .site-footer {
-        background: #07111f;
-
-        color: #ffffff;
-      }
-
-
-      .footer-inner {
-        display: grid;
-
-        grid-template-columns:
-          1.2fr
-          1.5fr
-          1fr;
-
-        gap: 50px;
-
-        padding: 55px 0;
-      }
-
-
-      .footer-logo {
-        width: 170px;
-        height: auto;
-      }
-
-
-      .footer-contact {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 7px;
-
-        color: rgba(255,255,255,0.7);
-
-        font-size: 14px;
-      }
-
-
-      .footer-contact strong {
-        color: #ffffff;
-        margin-bottom: 5px;
-      }
-
-
-      .footer-contact a {
-        color: rgba(255,255,255,0.7);
-        text-decoration: none;
-      }
-
-
-      .footer-contact a:hover {
-        color: #ffffff;
-      }
-
-
-      .footer-links {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 10px;
-      }
-
-
-      .footer-links a {
-        color: rgba(255,255,255,0.7);
-
-        text-decoration: none;
-
-        font-size: 14px;
-      }
-
-
-      .footer-links a:hover {
-        color: #ffffff;
-      }
-
-
-      .footer-bottom {
-        padding: 18px 20px;
-
-        border-top:
-          1px solid rgba(255,255,255,0.08);
-
-        text-align: center;
-
-        color: rgba(255,255,255,0.5);
-
-        font-size: 12px;
-      }
-
-
-      /* =========================
-         RESPONSIVE
-      ========================== */
-
-      @media (max-width: 900px) {
-
-        .main-nav {
-          display: none;
         }
+    );
 
 
-        .inquiry-grid {
-          grid-template-columns: 1fr;
+    /* ==========================================
+       CAPTCHA REFRESH
+    ========================================== */
 
-          gap: 45px;
+    captchaRefresh?.addEventListener(
+        "click",
+        generateCaptcha
+    );
+
+
+    /* ==========================================
+       RESET
+    ========================================== */
+
+    resetButton?.addEventListener(
+        "click",
+        () => {
+
+            window.setTimeout(
+                () => {
+
+                    clearErrors();
+
+                    formMessage.style.display =
+                        "none";
+
+                    formMessage.textContent =
+                        "";
+
+
+                    document
+                        .querySelectorAll(
+                            ".input-filled"
+                        )
+                        .forEach((element) => {
+
+                            element.classList.remove(
+                                "input-filled"
+                            );
+
+                        });
+
+
+                    generateCaptcha();
+
+                },
+                0
+            );
+
         }
+    );
 
 
-        .bottom-cta-inner {
-          flex-direction: column;
+    /* ==========================================
+       WEB3FORMS SUBMISSION
+    ========================================== */
 
-          align-items: flex-start;
+    form?.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            if (!validateForm()) {
+                return;
+            }
+
+
+            /*
+             * Make sure Web3Forms can use the visitor's
+             * email address as Reply-To.
+             */
+
+            const replyTo =
+                document.getElementById("replyto");
+
+            if (replyTo && emailInput) {
+
+                replyTo.value =
+                    emailInput.value.trim();
+
+            }
+
+
+            submitButton.disabled =
+                true;
+
+            submitButton.textContent =
+                "Sending...";
+
+
+            formMessage.style.display =
+                "none";
+
+            formMessage.textContent =
+                "";
+
+
+            try {
+
+                const formData =
+                    new FormData(form);
+
+
+                const response =
+                    await fetch(
+                        "https://api.web3forms.com/submit",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                Accept:
+                                    "application/json"
+                            },
+
+                            body: formData
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                if (
+                    response.ok &&
+                    result.success
+                ) {
+
+                    formMessage.className =
+                        "form-message success";
+
+                    formMessage.textContent =
+                        "Thank you. Your message has been sent successfully. We will get back to you as soon as possible.";
+
+                    formMessage.style.display =
+                        "block";
+
+
+                    form.reset();
+
+
+                    document
+                        .querySelectorAll(
+                            ".input-filled"
+                        )
+                        .forEach((element) => {
+
+                            element.classList.remove(
+                                "input-filled"
+                            );
+
+                        });
+
+
+                    clearErrors();
+
+                    generateCaptcha();
+
+
+                } else {
+
+                    throw new Error(
+                        result.message ||
+                        "Unable to send the message."
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Web3Forms submission error:",
+                    error
+                );
+
+
+                formMessage.className =
+                    "form-message error";
+
+                formMessage.textContent =
+                    "Sorry, your message could not be sent. Please try again later or contact us by email.";
+
+                formMessage.style.display =
+                    "block";
+
+
+            } finally {
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "Send";
+
+            }
+
         }
+    );
 
 
-        .footer-inner {
-          grid-template-columns: 1fr 1fr;
-        }
+    /* ==========================================
+       INITIALIZE CAPTCHA
+    ========================================== */
 
-      }
+    generateCaptcha();
+</script>
 
-
-      @media (max-width: 600px) {
-
-        .container {
-          width: min(
-            100% - 28px,
-            1180px
-          );
-        }
-
-
-        .header-inner {
-          width: min(
-            100% - 28px,
-            1180px
-          );
-        }
-
-
-        .hero {
-          padding: 65px 0;
-        }
-
-
-        .hero h1 {
-          font-size: 42px;
-        }
-
-
-        .hero p {
-          font-size: 17px;
-        }
-
-
-        .inquiry-section {
-          padding: 55px 0;
-        }
-
-
-        .form-card {
-          padding: 25px 20px;
-        }
-
-
-        .form-row {
-          grid-template-columns: 1fr;
-          gap: 0;
-        }
-
-
-        .checkbox-grid {
-          grid-template-columns: 1fr;
-        }
-
-
-        .bottom-cta {
-          padding: 50px 0;
-        }
-
-
-        .bottom-cta-inner {
-          padding: 30px 25px;
-        }
-
-
-        .bottom-cta h2 {
-          font-size: 25px;
-        }
-
-
-        .bottom-cta-button {
-          width: 100%;
-          justify-content: center;
-        }
-
-
-        .footer-inner {
-          grid-template-columns: 1fr;
-          gap: 30px;
-        }
-
-      }
-
-    </style>
-
-  </body>
+</body>
 </html>
