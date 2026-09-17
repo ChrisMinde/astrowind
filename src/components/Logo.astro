@@ -1,11 +1,21 @@
 ---
 import Image from '~/components/common/Image.astro';
-import logoImg from '~/assets/images/minde-technologies-logo-weiss.png';
+import logoDark from '~/assets/images/minde-technologies-logo-dark.png';
+import logoWhite from '~/assets/images/minde-technologies-logo-weiss.png';
 ---
-<span class="flex items-center gap-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-  <Image 
-    src={logoImg} 
-    alt="Minde Technologies" 
-    class="h-12 w-auto dark:invert dark:brightness-200 transition duration-200" 
+
+<span class="flex items-center gap-2 text-xl font-bold tracking-tight">
+  <!-- Light Mode -->
+  <Image
+    src={logoDark}
+    alt="Minde Technologies"
+    class="block h-12 w-auto dark:hidden"
+  />
+
+  <!-- Dark Mode -->
+  <Image
+    src={logoWhite}
+    alt="Minde Technologies"
+    class="hidden h-12 w-auto dark:block"
   />
 </span>
