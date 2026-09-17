@@ -1,2 +1,9 @@
-<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
-<link rel="apple-touch-icon" sizes="64x64" href="/favicon.png" />
+---
+import favIcon from '~/assets/favicons/favicon.png';
+import favIconSvg from '~/assets/favicons/favicon.svg';
+
+import appleTouchIcon from '~/assets/favicons/apple-touch-icon.png';
+---
+
+<link rel="icon" type="image/png" sizes="64x64" href={favIcon.scr} />
+<link rel="apple-touch-icon" sizes="180x180" href={favIcon.scr}  />
